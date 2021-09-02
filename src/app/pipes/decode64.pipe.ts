@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 @Pipe({
-  name: 'decode64',
-  pure: true
+  name: 'de64',
 })
-export class decode64Pipe implements PipeTransform {
+export class code64Pipe implements PipeTransform {
   transform(str: string): string {
-    return btoa(str);
+    return atob(str);
   }
 }
