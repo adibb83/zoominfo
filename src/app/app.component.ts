@@ -33,7 +33,13 @@ export class AppComponent implements OnInit {
           'SCBHIFdlbGxz',
           'QXJ0aHVyIEMgQ2xhcmtl',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'R3JhaGFtIEdyZWVuZQ==',
+          'SCBHIFdlbGxz',
+          'QXJ0aHVyIEMgQ2xhcmtl',
+          'QXJ0aHVyIENvbmFuIERveWxl'
+        ],
+        incorrect_count: 0
       },
       {
         category: 'R2VuZXJhbCBLbm93bGVkZ2U=',
@@ -47,7 +53,13 @@ export class AppComponent implements OnInit {
           'VGhlIEJ1c2h3aGFja2Vycw==',
           'VGhlIEJyaXRpc2ggQnVsbGRvZ3M=',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'VGhlIERyZWFtIFRlYW0=',
+          'VGhlIEJ1c2h3aGFja2Vycw==',
+          'VGhlIEJyaXRpc2ggQnVsbGRvZ3M=',
+          'RGVtb2xpdGlvbg=='
+        ],
+        incorrect_count: 0
       },
       {
         category: 'RW50ZXJ0YWlubWVudDogVGVsZXZpc2lvbg==',
@@ -61,7 +73,14 @@ export class AppComponent implements OnInit {
           'V2lsbHkgV29ua2E=',
           'V2FsbHkgV2FscnVz',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'V2lsbGlhbSBXb2xm',
+          'V2lsbHkgV29ua2E=',
+          'V2FsdGVyIFdoaXRl',
+          'V2FsbHkgV2FscnVz',
+
+        ],
+        incorrect_count: 0
       },
       {
         category: 'VmVoaWNsZXM=',
@@ -71,7 +90,8 @@ export class AppComponent implements OnInit {
           'V2hpY2ggY2FyIGJyYW5kIGRvZXMgTk9UIGJlbG9uZyB0byBHZW5lcmFsIE1vdG9ycz8=',
         correct_answer: 'Rm9yZA==',
         incorrect_answers: ['QnVpY2s=', 'Q2FkaWxsYWM=', 'Q2hldnJvbGV0'],
-        incorrect_options: 0
+        all_answers: ['QnVpY2s=', 'Q2FkaWxsYWM=', 'Rm9yZA==', 'Q2hldnJvbGV0'],
+        incorrect_count: 0
       },
       {
         category: 'R2VuZXJhbCBLbm93bGVkZ2U=',
@@ -85,7 +105,13 @@ export class AppComponent implements OnInit {
           'Qm9zdG9uIEJlZXIgQ29tcGFueQ==',
           'TWlsbGVyIENvb3Jz',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'RC4gRy4gWXVlbmdsaW5nIGFuZCBTb24sIEluYw==',
+          'QW5oZXVzZXIgQnVzY2g=',
+          'Qm9zdG9uIEJlZXIgQ29tcGFueQ==',
+          'TWlsbGVyIENvb3Jz',
+        ],
+        incorrect_count: 0
       },
       {
         category: 'RW50ZXJ0YWlubWVudDogVGVsZXZpc2lvbg==',
@@ -95,7 +121,8 @@ export class AppComponent implements OnInit {
           'SW4gIlRoZSBCaWcgQmFuZyBUaGVvcnkiLCB3aGF0IGlzIEhvd2FyZCBXb2xvd2l0eidzIG5pY2tuYW1lIGluIFdvcmxkIG9mIFdhcmNyYWZ0Pw==',
         correct_answer: 'V29sb3dpemFyZA==',
         incorrect_answers: ['U2hlbGRvcg==', 'UmFqZXNo', 'UHJpeWE='],
-        incorrect_options: 0
+        all_answers: ['U2hlbGRvcg==', 'V29sb3dpemFyZA==', 'UmFqZXNo', 'UHJpeWE='],
+        incorrect_count: 0
       },
       {
         category: 'RW50ZXJ0YWlubWVudDogTXVzaWM=',
@@ -109,7 +136,13 @@ export class AppComponent implements OnInit {
           'U3RyZWV0IExpZ2h0cw==',
           'SGVhcnRsZXNz',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'V2VsY29tZSB0byBIZWFydGJyZWFr',
+          'U3RyZWV0IExpZ2h0cw==',
+          'U2F5IFlvdSBXaWxs',
+          'SGVhcnRsZXNz',
+        ],
+        incorrect_count: 0
       },
       {
         category: 'UG9saXRpY3M=',
@@ -123,7 +156,13 @@ export class AppComponent implements OnInit {
           'VW5pdGVkIFN0YXRlcyBvZiBBbWVyaWNh',
           'UnVzc2lh',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'QmFocmFpbg==',
+          'VW5pdGVkIFN0YXRlcyBvZiBBbWVyaWNh',
+          'UnVzc2lh',
+          'UWF0YXI='
+        ],
+        incorrect_count: 0
       },
       {
         category: 'RW50ZXJ0YWlubWVudDogVmlkZW8gR2FtZXM=',
@@ -133,7 +172,8 @@ export class AppComponent implements OnInit {
           'V2hhdCBpcyB0aGUgbmFtZSBvZiB0aGUgYWxsaWdhdG9yIGluIFdoZXJlJ3MgTXkgV2F0ZXI/',
         correct_answer: 'U3dhbXB5',
         incorrect_answers: ['Q3Jhbmt5', 'Q3JvY2t5', 'SnVzdGljZQ=='],
-        incorrect_options: 0
+        all_answers: ['Q3Jhbmt5', 'Q3JvY2t5', 'SnVzdGljZQ==', 'U3dhbXB5'],
+        incorrect_count: 0
       },
       {
         category: 'Q2VsZWJyaXRpZXM=',
@@ -147,7 +187,13 @@ export class AppComponent implements OnInit {
           'VGV4YXMgUmFuZ2Vycw==',
           'U25vdyBEb2dz',
         ],
-        incorrect_options: 0
+        all_answers: [
+          'TW9uc3RlcnMgSW5j',
+          'VGV4YXMgUmFuZ2Vycw==',
+          'U25vdyBEb2dz',
+          'QW1lcmljYW4gR3Vu'
+        ],
+        incorrect_count: 0
       },
     ],
     total: { correct_answer: 0, incorrect_answers: 0 }
@@ -183,7 +229,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.timer$.subscribe((i) => {
-      console.log(i);
       if (i > 20) {
         this.quiz.total.incorrect_answers++;
         this.nextQuestion();
@@ -200,18 +245,8 @@ export class AppComponent implements OnInit {
     this.currentQ++;
   }
 
-  onAnswer(answer: string, question: IQuestion) {
-    if (question.incorrect_answers.find(e => e === answer)) {
-      question.incorrect_options++;
-    } else {
-      this.quiz.total.correct_answer++;
-      this.nextQuestion();
-    }
-
-    if (question.incorrect_options === 3) {
-      this.quiz.total.incorrect_answers++;
-      this.nextQuestion();
-    }
+  questionResult($event: boolean) {
 
   }
+
 }

@@ -8,9 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { QuizComponent } from './pages/quiz/quiz.component';
+import { QuestionComponent } from './components/question/question.component';
+import { AnswersComponent } from './components/answers/answers.component';
+import { ButtonAnimationDirective } from './directives/button-animation.directive';
 
 @NgModule({
-  declarations: [AppComponent, code64Pipe],
+  declarations: [AppComponent, code64Pipe, QuizComponent, QuestionComponent, AnswersComponent, ButtonAnimationDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,

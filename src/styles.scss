@@ -10,3 +10,58 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+// BLINK
+.btn--blink {
+  background-color: green;
+  animation: blink 1s ease-out;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+// Wiggle
+.btn--wiggle {
+  background-color: red;
+  animation: 0.5s wiggle ease-in-out;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+  }
+
+  20% {
+    transform: rotate(20deg);
+  }
+
+  40% {
+    transform: rotate(-15deg);
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  90% {
+    transform: rotate(-1deg);
+  }
+
+  100% {
+    transform: rotate(0);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+  }
+}

@@ -9,10 +9,7 @@
               class="p-button-rounded">{{timer$|async}}</button>
           </div>
           <div class="question__answers">
-            <button pButton
-              (click)="onAnswer(question.correct_answer,question)">{{question.correct_answer| de64}}</button>
-            <button pButton (click)="onAnswer(ianswer ,question)"
-              *ngFor="let ianswer of question.incorrect_answers">{{ianswer| de64}}</button>
+            <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
           </div>
         </div>
       </div>
