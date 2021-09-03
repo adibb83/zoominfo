@@ -10,7 +10,7 @@ export class ButtonAnimationDirective {
     console.info('clicked: ' + $event.target);
     this.isCorrect ?
       this.renderer.addClass(this.el.nativeElement, 'btn--blink') :
-      this.renderer.addClass(this.el.nativeElement, 'btn--wiggle');
+      this.renderer.addClass(this.el.nativeElement, 'btn--wiggle')
     this.el.nativeElement.disabled = true;
   }
 }
