@@ -1,0 +1,27 @@
+.carousel {
+  &__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.question {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__item-content {
+    margin: .3rem;
+    text-align: center;
+    padding: 2rem 0;
+  }
+}
+
+
+.avoid-clicks {
+  pointer-events: none;
+}

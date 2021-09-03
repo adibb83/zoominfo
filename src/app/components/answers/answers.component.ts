@@ -16,16 +16,16 @@ export class AnswersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAnswer(answer: string, question: IQuestion) {
-    if (question.correct_answer === answer) {
+  onAnswer(answer: string) {
+    if (this.question.correct_answer === answer) {
       this.questionResult.emit(true);
     } else {
-      question.incorrect_count++;
+      this.question.incorrect_count++;
+      console.log("count", this.question.incorrect_count)
     }
 
-    if (question.incorrect_count === 3) {
+    if (this.question.incorrect_count === 3) {
       this.questionResult.emit(false);
     }
-
   }
 }

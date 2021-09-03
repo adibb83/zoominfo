@@ -1,6 +1,6 @@
 <div class="answers">
   <div class="answers__container">
-    <button pButton appButtonAnimation [isCorrect]="true" (click)="onAnswer(answer ,question)"
-      *ngFor="let answer of question.all_answers">{{answer| de64}}</button>
+    <button *ngFor="let answer of question.all_answers" pButton appButtonAnimation
+      [isCorrect]="answer === question.correct_answer" (click)="onAnswer(answer)">{{answer| de64}}</button>
   </div>
 </div>

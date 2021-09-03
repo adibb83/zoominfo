@@ -1,18 +1,1 @@
-<div class="carousel__container">
-  <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
-    [responsiveOptions]="responsiveOptions" [page]="currentQ">
-    <ng-template let-question pTemplate="item">
-      <div class="question__item">
-        <div class="question__item-content">
-          <div>
-            <span><b>Q: {{question.question | de64}}</b></span><button pButton pRipple type="button" icon="pi pi-times"
-              class="p-button-rounded">{{timer$|async}}</button>
-          </div>
-          <div class="question__answers">
-            <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </p-carousel>
-</div>
+<router-outlet></router-outlet>

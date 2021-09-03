@@ -1,1 +1,31 @@
-<p>quiz works!</p>
+<div [ngSwitch]="pager">
+  <div *ngSwitchCase="'open'">
+    <button pButton pRipple type="button" label="Start Quiz" (click)="setPager('quiz')"
+      class="p-button-rounded"></button>
+  </div>
+  <div *ngSwitchCase="'quiz'" class="carousel__container">
+    <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
+      [responsiveOptions]="responsiveOptions" [page]="currentQuestionIndex">
+      <ng-template let-question pTemplate="item">
+        <div class="question__item">
+          <div class="question__item-content">
+            <div>
+              <h3><b>Q: {{question.question | de64}}</b></h3>
+            </div>
+            <div>
+              <span><i class="pi pi-clock"></i> {{timer$|async}}</span>
+            </div>
+            <div class="question__answers" [ngClass]="{'avoid-clicks': lockAnswers}">
+              <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+  <div *ngSwitchCase="'end'">
+    <h1>This Is The End: {{quiz.total.incorrect_answers}}/{{quiz.total.correct_answers}}</h1>
+    <button pButton pRipple type="button" label="One More Time" (click)="setPager('open')"
+      class="p-button-rounded"></button>
+  </div>
+</div>
