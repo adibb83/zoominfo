@@ -10,7 +10,8 @@
       "@models/*":["src/app/models/*"],
       "@modules/*":["src/app/modules/*"],
       "@components/*":["src/app/components/*"],
-      "@pipes/*":["src/app/pipes/*"]
+      "@pipes/*":["src/app/pipes/*"],
+      "@core/*":["src/app/core/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,

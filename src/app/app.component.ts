@@ -9,9 +9,7 @@ import { QuizService } from '@services/quiz/quiz.service';
 export class AppComponent implements OnInit {
   title = 'Quiz';
 
-  constructor(private quizService: QuizService) {
-
-  }
+  constructor(private quizService: QuizService) {}
 
   ngOnInit() {
     this.quizService.getQuestion();

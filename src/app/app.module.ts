@@ -7,26 +7,34 @@ import { code64Pipe } from './pipes/code64.pipe';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { QuestionComponent } from './components/question/question.component';
 import { AnswersComponent } from './components/answers/answers.component';
 import { ButtonAnimationDirective } from './directives/button-animation.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '@core/core.module';
+import { ApiClientService } from '@services/api-client/api-client.service';
 
 @NgModule({
-  declarations: [AppComponent, code64Pipe, QuizComponent, QuestionComponent, AnswersComponent, ButtonAnimationDirective],
+  declarations: [
+    AppComponent,
+    code64Pipe,
+    QuizComponent,
+    QuestionComponent,
+    AnswersComponent,
+    ButtonAnimationDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    CoreModule,
     CarouselModule,
     ButtonModule,
-    ToastModule,
   ],
-  providers: [],
+  providers: [ApiClientService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,47 +1,39 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
-import {
-  switchMap,
-  startWith
-} from 'rxjs/operators';
+import { switchMap, startWith } from 'rxjs/operators';
 import { IQuiz, IQuestion, ITotal } from '@models/quiz.model';
 import { QuizService } from '@services/quiz/quiz.service';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit, OnDestroy {
-
   responsiveOptions!: object[];
-  currentQuestionIndex = 0;
+  currentQuestionIndex!: number;
   reset$ = new Subject();
   timer$!: Observable<any>;
   timerSub!: Subscription;
   quiz!: IQuiz;
-  pager = 'open'
-  lockAnswers = false;
+  pager = 'open';
+  lockAnswers!: boolean;
 
   constructor(private quizService: QuizService) {
     this.setCarouselResponsiveMode();
-    this.Init();
   }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 
   Init() {
     this.quiz = {
       questions: this.quizService.questionList$,
-      total: { correct_answers: 0, incorrect_answers: 0 }
-    } as IQuiz
+      total: { correct_answers: 0, incorrect_answers: 0 },
+    } as IQuiz;
 
-    this.startTimer();
+    this.currentQuestionIndex = 0;
+    this.lockAnswers = false;
   }
-
 
   startTimer() {
     this.timer$ = this.reset$.pipe(
@@ -50,7 +42,10 @@ export class QuizComponent implements OnInit, OnDestroy {
     );
 
     this.timerSub = this.timer$.subscribe((second) => {
-      if (this.quiz.questions.length < 10) { this.quizService.getQuestion(); }
+      if (this.quiz.questions.length < 10) {
+        this.quizService.getQuestion();
+      }
+
       if (second > 20) {
         this.quiz.total.incorrect_answers++;
         this.nextQuestion();
@@ -61,47 +56,55 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   refreshQuiz() {
     this.quizService.resetQuizData();
-    this.Init()
+    this.Init();
   }
 
   refreshTimer(): void {
     this.reset$.next(void 0);
   }
 
-  endGame() {
+  stopTimer() {
     this.timerSub.unsubscribe();
+  }
+
+  endGame() {
     this.setPager('end');
+    this.timerSub.unsubscribe();
   }
 
   nextQuestion() {
-    if (this.currentQuestionIndex > 9) {
+    if (this.currentQuestionIndex === this.quiz.questions.length - 1) {
       this.lockAnswers = true;
       this.endGame();
       return;
     }
+
     this.lockAnswers = false;
     this.currentQuestionIndex++;
   }
 
   questionResult($event: boolean) {
     this.lockAnswers = true;
-    console.log($event);
     this.addScoreToTotal($event);
     setTimeout(() => {
       this.nextQuestion();
       this.refreshTimer();
     }, 500);
-
   }
 
   addScoreToTotal(isCorrect: boolean) {
-    isCorrect ? this.quiz.total.correct_answers++ : this.quiz.total.incorrect_answers++;
+    isCorrect
+      ? this.quiz.total.correct_answers++
+      : this.quiz.total.incorrect_answers++;
   }
 
   setPager(page: string) {
+    if (page === 'quiz') {
+      this.Init();
+      this.startTimer();
+    }
     this.pager = page;
   }
-
 
   setCarouselResponsiveMode() {
     this.responsiveOptions = [
@@ -124,6 +127,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.timerSub) { this.timerSub.unsubscribe(); }
+    if (this.timerSub) {
+      this.timerSub.unsubscribe();
+    }
   }
 }

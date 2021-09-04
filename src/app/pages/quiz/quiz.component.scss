@@ -1,9 +1,19 @@
+@import "../../style/abstracts/mixins";
+
+.opening {
+  @include center-div();
+  display: grid;
+  grid-template-rows: 100px 100px 50px;
+  text-align: center;
+}
+
 .carousel {
   &__container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 45vw;
   }
 }
 
@@ -15,13 +25,36 @@
   }
 
   &__item-content {
-    margin: .3rem;
+    margin: 0.3rem;
     text-align: center;
     padding: 2rem 0;
+    width: 100%;
+  }
+
+  &__item-txt {
+    p {
+      white-space: pre-line;
+      text-align: center;
+      font-size: 1.3rem;
+    }
   }
 }
 
+.ending {
+  @include center-div();
+  display: grid;
+  grid-template-rows: 100px 100px 50px;
+  text-align: center;
+}
 
 .avoid-clicks {
   pointer-events: none;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }
