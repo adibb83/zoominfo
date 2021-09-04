@@ -11,7 +11,8 @@
       "@modules/*":["src/app/modules/*"],
       "@components/*":["src/app/components/*"],
       "@pipes/*":["src/app/pipes/*"],
-      "@core/*":["src/app/core/*"]
+      "@interceptors/*":["src/app/interceptors/*"],
+      "@directives/*":["src/app/directives/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,

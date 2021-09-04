@@ -8,12 +8,10 @@ import { QuestionResponse } from '@models/quiz.model';
   providedIn: 'root',
 })
 export class ApiClientService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  // Get Single question from server -- global error handling
+  // Get Single question from server -- Interceptor error handling
   getQuestion(): Observable<QuestionResponse> {
-    return this.httpClient.get<QuestionResponse>(
-      `${environment.remoteServer}sdfsdfsdf`
-    );
+    return this.httpClient.get<QuestionResponse>(`${environment.remoteServer}`);
   }
 }

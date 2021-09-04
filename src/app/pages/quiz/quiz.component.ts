@@ -1,8 +1,9 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { switchMap, startWith } from 'rxjs/operators';
-import { IQuiz, IQuestion, ITotal } from '@models/quiz.model';
+import { IQuiz } from '@models/quiz.model';
 import { QuizService } from '@services/quiz/quiz.service';
+import { ToastMassageService } from '@services/toast-message/toast-massage.service';
 
 @Component({
   selector: 'app-quiz',
@@ -19,11 +20,19 @@ export class QuizComponent implements OnInit, OnDestroy {
   pager = 'open';
   lockAnswers!: boolean;
 
-  constructor(private quizService: QuizService) {
-    this.setCarouselResponsiveMode();
+  get questionArrayLength() {
+    return this.quiz.questions.length;
   }
 
-  ngOnInit() {}
+  constructor(
+    private quizService: QuizService,
+    private toastMassage: ToastMassageService
+  ) {
+    this.setCarouselResponsiveMode();
+    this.Init();
+  }
+
+  ngOnInit() { }
 
   Init() {
     this.quiz = {
@@ -36,16 +45,13 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
+    if (this.quiz.questions.length === 0) { return; }
     this.timer$ = this.reset$.pipe(
       startWith(0),
       switchMap(() => timer(1, 1000))
     );
 
     this.timerSub = this.timer$.subscribe((second) => {
-      if (this.quiz.questions.length < 10) {
-        this.quizService.getQuestion();
-      }
-
       if (second > 20) {
         this.quiz.total.incorrect_answers++;
         this.nextQuestion();
@@ -73,12 +79,11 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   nextQuestion() {
-    if (this.currentQuestionIndex === this.quiz.questions.length - 1) {
+    if (this.currentQuestionIndex === this.questionArrayLength - 1) {
       this.lockAnswers = true;
       this.endGame();
       return;
     }
-
     this.lockAnswers = false;
     this.currentQuestionIndex++;
   }
@@ -99,11 +104,23 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   setPager(page: string) {
-    if (page === 'quiz') {
-      this.Init();
-      this.startTimer();
+    switch (page) {
+      case 'open':
+        this.pager = page;
+        break;
+      case 'quiz':
+        if (this.questionArrayLength === 0) {
+          this.toastMassage.showError('Sorry But I Think I Said No Questions For NOW! didn`t I?')
+          break;
+        }
+        this.Init();
+        this.startTimer();
+        this.pager = page;
+        break;
+      case 'end':
+        this.pager = page;
+        break;
     }
-    this.pager = page;
   }
 
   setCarouselResponsiveMode() {
