@@ -2,8 +2,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { IQuestion, QuestionResponse } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client/api-client.service';
 import { ToastMassageService } from '@services/toast-message/toast-massage.service';
-import { Observable, Subject, Subscription, throwError, timer } from 'rxjs';
-import { retry, share, switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, Subscription, throwError, timer } from 'rxjs';
+import { retry, share, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class QuizService implements OnDestroy {
   private quizData: IQuestion[] = [];
   public quizDataListener$!: Observable<QuestionResponse>;
   questionSubscription!: Subscription;
-  private stopPolling = new Subject();
+
 
   get questionList$() {
     return this.quizData;
@@ -31,7 +31,6 @@ export class QuizService implements OnDestroy {
       share()
     );
   }
-
 
   getQuestions() {
     this.questionSubscription = this.quizDataListener$.subscribe(res => {
