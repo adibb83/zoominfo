@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const PRIMENG_IMPORTS = [
   CommonModule,
   CarouselModule,
   ButtonModule,
-  ToastModule
+  ToastModule,
+  ProgressSpinnerModule
 ];
 
 

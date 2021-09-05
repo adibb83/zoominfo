@@ -1,6 +1,7 @@
-<div class="carousel__container">
+<p-progressSpinner class="abs-center" *ngIf="!quiz?.questions"></p-progressSpinner>
+<div class="carousel__container" *ngIf="quiz?.questions">
   <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
-    [page]="currentQuestionIndex">
+    [page]="quiz.progress">
     <ng-template let-question pTemplate="item">
       <div class="question__item">
         <div class="question__item-content">
