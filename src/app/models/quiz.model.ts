@@ -6,10 +6,12 @@ export interface QuestionResponse {
 export interface IQuiz {
   questions: IQuestion[];
   total: ITotal;
+  progress?: number
 }
 
 
 export interface IQuestion {
+  id?: number;
   category: string;
   type: string;
   difficulty: string;
@@ -18,11 +20,6 @@ export interface IQuestion {
   incorrect_answers: string[];
   all_answers?: string[];
   incorrect_count: number;
-}
-
-export interface Answering {
-  questionId: string;
-  answerIndex: number;
 }
 
 export interface ITotal {

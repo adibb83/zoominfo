@@ -1,40 +1,20 @@
-
-<div [ngSwitch]="pager">
-  <div *ngSwitchCase="'open'" class="opening">
-    <h2>IT'S QUIZ TIME</h2>
-    <p>
-      10 Questions, 20s Per Question.<br>
-      Are You Ready For It?
-    </p>
-    <button pButton pRipple type="button" label="Let's GO!!" (click)="setPager('quiz')"
-      class="p-button-rounded"></button>
-  </div>
-  <div *ngSwitchCase="'quiz'" class="carousel__container">
-    <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
-      [responsiveOptions]="responsiveOptions" [page]="currentQuestionIndex">
-      <ng-template let-question pTemplate="item">
-        <div class="question__item">
-          <div class="question__item-content">
-            <div class="question__item-txt">
-              <p><b>Q: {{question.question | de64}}</b></p>
-            </div>
-            <div>
-              <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>
-            </div>
-            <div class="question__answers" [ngClass]="{'avoid-clicks': lockAnswers}">
-              <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
-            </div>
+<div class="carousel__container">
+  <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
+    [page]="currentQuestionIndex">
+    <ng-template let-question pTemplate="item">
+      <div class="question__item">
+        <div class="question__item-content">
+          <div class="question__item-txt">
+            <p><b>Q: {{question.question | de64}}</b></p>
+          </div>
+          <div>
+            <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>
+          </div>
+          <div class="question__answers" [ngClass]="{'avoid-clicks': lockAnswers}">
+            <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
-  </div>
-  <div *ngSwitchCase="'end'" class="ending">
-    <h2>This Is The End My Faithful Friend</h2>
-      <div>
-        <span><i class="pi pi-thumbs-down red"></i>&nbsp; <b>{{quiz.total.incorrect_answers}}</b></span> /  <span><i class="pi pi-thumbs-up green"></i> &nbsp;<b>{{quiz.total.correct_answers}}</b></span>
       </div>
-    <button pButton pRipple type="button" label="One More Time" (click)="setPager('open'); refreshQuiz()"
-      class="p-button-rounded"></button>
-  </div>
+    </ng-template>
+  </p-carousel>
 </div>

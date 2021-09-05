@@ -1,12 +1,3 @@
-@import "../../style/abstracts/mixins";
-
-.opening {
-  @include center-div();
-  display: grid;
-  grid-template-rows: 100px 100px 50px;
-  text-align: center;
-}
-
 .carousel {
   &__container {
     position: absolute;
@@ -38,23 +29,4 @@
       font-size: 1.3rem;
     }
   }
-}
-
-.ending {
-  @include center-div();
-  display: grid;
-  grid-template-rows: 100px 100px 50px;
-  text-align: center;
-}
-
-.avoid-clicks {
-  pointer-events: none;
-}
-
-.red {
-  color: red;
-}
-
-.green {
-  color: green;
 }

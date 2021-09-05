@@ -12,10 +12,12 @@
       "@components/*":["src/app/components/*"],
       "@pipes/*":["src/app/pipes/*"],
       "@interceptors/*":["src/app/interceptors/*"],
-      "@directives/*":["src/app/directives/*"]
+      "@directives/*":["src/app/directives/*"],
+      "@store/*":["src/app/store/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictNullChecks":false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,

@@ -14,15 +14,21 @@ import { ApiClientService } from '@services/api-client/api-client.service';
 import { HttpErrorInterceptor } from '@interceptors/http-error.interceptor';
 import { PrimeNGModule } from '@modules/prime-ng/prime-ng.module';
 import { MessageService } from 'primeng/api';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { ScoreComponent } from '@pages/score/score.component';
+import { StoreModule } from '@ngrx/store';
+import { QuizReducer } from '@store/quiz.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    code64Pipe,
     QuizComponent,
     QuestionComponent,
     AnswersComponent,
+    WelcomeComponent,
+    ScoreComponent,
     ButtonAnimationDirective,
+    code64Pipe,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,8 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    PrimeNGModule
+    PrimeNGModule,
+    StoreModule.forRoot({ quiz: QuizReducer })
   ],
   providers: [
     MessageService,
