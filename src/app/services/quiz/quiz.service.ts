@@ -43,7 +43,6 @@ export class QuizService implements OnDestroy {
     });
 
     return questions;
-
   }
 
   convertData(question: IQuestion): IQuestion {

@@ -9,7 +9,7 @@ export const CreateNewQuiz = createAction(
   props<{ payload: IQuiz }>()
 );
 
-export const BeginRetrievedQuestionList = createAction('[Quiz] Begin Retrieve Questions Success');
+export const BeginRetrievedQuestionList = createAction('[Quiz] Begin Retrieve Questions');
 
 export const SuccessRetrievedQuestionList = createAction(
   '[Quiz] Retrieve Questions Success',
