@@ -10,6 +10,7 @@ import { retry, share, switchMap, takeWhile } from 'rxjs/operators';
 })
 export class QuizService implements OnDestroy {
   private quizData: IQuestion[] = [];
+  public quiz!: IQuiz;
   public quizDataListener$!: Observable<QuestionResponse>;
   questionSubscription!: Subscription;
   questionId = 1;
@@ -22,6 +23,14 @@ export class QuizService implements OnDestroy {
   constructor(
     private apiClientService: ApiClientService,
     private toastMassage: ToastMassageService) {
+  }
+
+  initNewQuiz(): IQuiz {
+    return {
+      questions: null,
+      total: { correct_answers: 0, incorrect_answers: 0 },
+      progress: 1
+    } as IQuiz;
   }
 
   initData() {
