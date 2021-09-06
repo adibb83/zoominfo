@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { IQuestion, IQuiz, QuestionResponse } from '@models/quiz.model';
-import { ApiClientService } from '@services/api-client/api-client.service';
-import { ToastMassageService } from '@services/toast-message/toast-massage.service';
+import { ApiClientService } from '@services/api-client.service';
+import { ToastMassageService } from '@services/toast-massage.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 

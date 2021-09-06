@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IQuiz } from '@models/quiz.model';
 import { select, Store } from '@ngrx/store';
-import { QuizService } from '@services/quiz/quiz.service';
+import { QuizService } from '@services/quiz.service';
 import QuizState from '@store/quiz.state';
 import { selectQuiz, selectQuizState } from '@store/quiz.selector'
 

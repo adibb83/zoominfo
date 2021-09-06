@@ -5,7 +5,7 @@ export interface QuestionResponse {
 
 export interface IQuiz {
   questions: IQuestion[];
-  total: ITotal;
+  answers: IAnswering;
   progress?: number
 }
 
@@ -19,10 +19,9 @@ export interface IQuestion {
   correct_answer: string;
   incorrect_answers: string[];
   all_answers?: string[];
-  incorrect_count: number;
 }
 
-export interface ITotal {
+export interface IAnswering {
   incorrect_answers: number;
   correct_answers: number;
 }

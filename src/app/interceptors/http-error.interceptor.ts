@@ -8,9 +8,9 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { LoggerService } from '@services/logger/logger.service';
+import { LoggerService } from '@services/logger.service';
 import { MessageService } from 'primeng/api';
-import { ToastMassageService } from '@services/toast-message/toast-massage.service';
+import { ToastMassageService } from '@services/toast-massage.service';
 
 @Injectable({
   providedIn: 'root',

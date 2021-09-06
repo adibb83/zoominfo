@@ -10,7 +10,7 @@ import { QuestionComponent } from '@components/question/question.component';
 import { AnswersComponent } from '@components/answers/answers.component';
 import { ButtonAnimationDirective } from '@directives/button-animation.directive';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApiClientService } from '@services/api-client/api-client.service';
+import { ApiClientService } from '@services/api-client.service';
 import { HttpErrorInterceptor } from '@interceptors/http-error.interceptor';
 import { PrimeNGModule } from '@modules/prime-ng/prime-ng.module';
 import { MessageService } from 'primeng/api';

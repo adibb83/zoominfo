@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { QuizService } from '@services/quiz/quiz.service';
+import { QuizService } from '@services/quiz.service';
 import QuizState from '@store/quiz.state';
 import * as QuizActions from '@store/quiz.actions'
 import { Subscription } from 'rxjs';
