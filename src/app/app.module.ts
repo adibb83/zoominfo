@@ -18,6 +18,9 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ScoreComponent } from '@pages/score/score.component';
 import { StoreModule } from '@ngrx/store';
 import { QuizReducer } from '@store/quiz.reducer';
+import { ShufflePipe } from './pipes/shuffle.pipe';
+import { EffectsModule } from '@ngrx/effects';
+import { QuestionsEffects } from '@store/quiz.effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { QuizReducer } from '@store/quiz.reducer';
     ScoreComponent,
     ButtonAnimationDirective,
     code64Pipe,
+    ShufflePipe,
   ],
   imports: [
     BrowserModule,
@@ -37,12 +41,14 @@ import { QuizReducer } from '@store/quiz.reducer';
     BrowserAnimationsModule,
     FormsModule,
     PrimeNGModule,
-    StoreModule.forRoot({ quiz: QuizReducer })
+    StoreModule.forRoot({ quiz: QuizReducer }),
+    EffectsModule.forRoot([QuestionsEffects]),
   ],
   providers: [
     MessageService,
     ApiClientService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

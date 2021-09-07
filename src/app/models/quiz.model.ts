@@ -1,4 +1,3 @@
-
 export interface QuestionResponse {
   results: IQuestion[];
 }
@@ -6,9 +5,8 @@ export interface QuestionResponse {
 export interface IQuiz {
   questions: IQuestion[];
   answers: IAnswering;
-  progress?: number
+  currentQuestion: IQuestion;
 }
-
 
 export interface IQuestion {
   id?: number;

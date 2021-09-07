@@ -1,42 +1,43 @@
 import { Injectable } from '@angular/core';
+import { IAnswering, IQuestion, IQuiz } from '@models/quiz.model';
 import { Store } from '@ngrx/store';
+import * as QuizActions from '@store/quiz.actions';
+import * as QuizSelectors from '@store/quiz.selector';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoreService {
+  constructor(private store: Store) {}
 
-  constructor(private store: Store<{ app: reducer.State }>) { }
-
-  getQuiz() {
-    this.store.dispatch(new QuizActions.GetQuiz());
+  get GetQuiz(): Observable<IQuiz> {
+    return this.store.select(QuizSelectors.selectQuiz);
   }
 
-  postAnswer(answer: Answering) {
-    this.store.dispatch(new QuizActions.AnswerQuestion(answer));
+  get GetQuestions(): Observable<IQuestion[]> {
+    return this.store.select(QuizSelectors.selectQuestions);
   }
 
-  getQuestion() {
-    this.store.dispatch(new QuizActions.GetQuestion());
+  getApiQuestions() {
+    this.store.dispatch(QuizActions.GetQuestions());
   }
 
-  get quizProgress(): Observable<any> {
-    return this.store.select(reducer.selectQuizProgress);
+  setCurrentQuestion(question: IQuestion) {
+    this.store.dispatch(QuizActions.GetCurrentQuestion({ payload: question }));
   }
 
-  get currentQuestion(): Observable<Question> {
-    return this.store.select(reducer.selectQuestion);
+  get currentQuestion(): Observable<IQuestion> {
+    return this.store.select(QuizSelectors.selectCurrentQuestion);
   }
 
-  get quizStatus(): Observable<boolean> {
-    return this.store.select(reducer.selectQuizStatus);
+  setAnawerScore(answer: boolean) {
+    answer
+      ? this.store.dispatch(QuizActions.AnswerQuestionSuccess())
+      : this.store.dispatch(QuizActions.AnswerQuestionFail());
   }
 
-  get quizScoreDetails(): Observable<Answering[]> {
-    return this.store.select(reducer.selectScoreDetails);
-  }
-
-  get quizScore(): Observable<number> {
-    return this.store.select(reducer.selectScore);
+  get quizScore(): Observable<IAnswering> {
+    return this.store.select(QuizSelectors.selectAnswers);
   }
 }

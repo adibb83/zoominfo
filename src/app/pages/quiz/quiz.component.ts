@@ -1,13 +1,14 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { switchMap, startWith } from 'rxjs/operators';
-import { IQuiz } from '@models/quiz.model';
+import { IQuestion, IQuiz } from '@models/quiz.model';
 import { QuizService } from '@services/quiz.service';
 import { ToastMassageService } from '@services/toast-massage.service';
 import { Router } from '@angular/router';
 import QuizState from '@store/quiz.state';
 import { Store } from '@ngrx/store';
-import * as QuizActions from '@store/quiz.actions'
+import * as QuizActions from '@store/quiz.actions';
+import { StoreService } from '@services/store.service';
 
 @Component({
   selector: 'app-quiz',
@@ -19,29 +20,56 @@ export class QuizComponent implements OnInit, OnDestroy {
   timer$!: Observable<any>;
   timerSub!: Subscription;
   quizLoaderSub!: Subscription;
-  quiz!: IQuiz;
-  pager = 'open';
+  questions$ = this.storeService.GetQuestions;
+  questions: IQuestion[] = [];
+  currentQuestionIndex = 0;
   lockAnswers!: boolean;
 
   constructor(
     private quizService: QuizService,
     private toastMassage: ToastMassageService,
     private router: Router,
-    private store: Store<{ quiz: QuizState }>
-  ) { }
+    private storeService: StoreService
+  ) {}
 
   ngOnInit() {
-    this.quizLoaderSub = this.quizService.quizLoader$.subscribe((data: IQuiz | null) => {
-      if (data !== null) {
-        this.startQuiz(data);
-      }
+    this.questions$.subscribe((que) => {
+      console.log(que);
+      this.startQuiz(que);
     });
   }
 
-  startQuiz(quiz: IQuiz) {
-    this.quiz = quiz
-    this.lockAnswers = false;
+  startQuiz(questions: IQuestion[]) {
+    this.questions = questions;
+    this.storeService.setCurrentQuestion(
+      this.questions[this.currentQuestionIndex]
+    );
     this.startTimer();
+    this.lockAnswers = false;
+  }
+
+  nextQuestion() {
+    this.lockAnswers = false;
+    this.storeService.setCurrentQuestion(
+      this.questions[this.currentQuestionIndex++]
+    );
+  }
+
+  questionResult($event: boolean) {
+    this.lockAnswers = true;
+    this.addScoreToTotal($event);
+    if (this.currentQuestionIndex === this.questions.length - 1) {
+      this.endGame();
+      return;
+    }
+    setTimeout(() => {
+      this.nextQuestion();
+      this.refreshTimer();
+    }, 300);
+  }
+
+  addScoreToTotal(isCorrect: boolean) {
+    this.storeService.setAnawerScore(isCorrect);
   }
 
   startTimer() {
@@ -52,7 +80,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     this.timerSub = this.timer$.subscribe((second) => {
       if (second > 20) {
-        this.quiz.total.incorrect_answers++;
+        this.addScoreToTotal(false);
         this.nextQuestion();
         this.refreshTimer();
       }
@@ -68,34 +96,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   endGame() {
-    this.quizService.quizLoader$.next(this.quiz);
     this.router.navigate(['score']);
     this.timerSub.unsubscribe();
-  }
-
-  nextQuestion() {
-    this.lockAnswers = false;
-    this.quiz.progress++;
-    this.store.dispatch(QuizActions.QuestionWasAnswered({ payload: this.quiz }))
-  }
-
-  questionResult($event: boolean) {
-    this.lockAnswers = true;
-    this.addScoreToTotal($event);
-    if (this.quiz.progress === this.quiz.questions.length - 1) {
-      this.endGame();
-      return;
-    }
-    setTimeout(() => {
-      this.nextQuestion();
-      this.refreshTimer();
-    }, 300);
-  }
-
-  addScoreToTotal(isCorrect: boolean) {
-    isCorrect
-      ? this.quiz.total.correct_answers++
-      : this.quiz.total.incorrect_answers++;
   }
 
   ngOnDestroy() {
@@ -103,6 +105,8 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.timerSub.unsubscribe();
     }
 
-    if (this.quizLoaderSub) { this.quizLoaderSub.unsubscribe() }
+    if (this.quizLoaderSub) {
+      this.quizLoaderSub.unsubscribe();
+    }
   }
 }

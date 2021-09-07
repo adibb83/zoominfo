@@ -1,12 +1,12 @@
-<p-progressSpinner class="abs-center" *ngIf="!quiz?.questions"></p-progressSpinner>
-<div class="carousel__container" *ngIf="quiz?.questions">
-  <p-carousel [value]="quiz.questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
-    [page]="quiz.progress">
+<p-progressSpinner class="abs-center" *ngIf="!questions"></p-progressSpinner>
+<div class="carousel__container" *ngIf="questions">
+  <p-carousel [value]="questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
+    [page]="currentQuestionIndex">
     <ng-template let-question pTemplate="item">
       <div class="question__item">
         <div class="question__item-content">
           <div class="question__item-txt">
-            <p><b>Q: {{question.question | de64}}</b></p>
+            <p><b>Q:{{question.id}}. {{question.question | de64}}</b></p>
           </div>
           <div>
             <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>

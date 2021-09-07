@@ -1,14 +1,25 @@
-
-import { IQuiz } from "@models/quiz.model";
-import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { IAnswering, IQuestion, IQuiz } from '@models/quiz.model';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import QuizState from './quiz.state';
 
+export const selectQuizState = createFeatureSelector<QuizState>('quiz');
+
 export const selectQuiz = createSelector(
-  (state: QuizState) => state.Quiz,
-  (quiz: IQuiz) => quiz
+  selectQuizState,
+  (state: QuizState) => state.quiz
 );
 
-export const selectQuizState = createFeatureSelector<
-  QuizState,
-  IQuiz
->("Quiz");
+export const selectQuestions = createSelector(
+  selectQuizState,
+  (state: QuizState) => state.quiz.questions
+);
+
+export const selectAnswers = createSelector(
+  selectQuizState,
+  (state: QuizState) => state.quiz.answers
+);
+
+export const selectCurrentQuestion = createSelector(
+  selectQuizState,
+  (state: QuizState) => state.quiz.currentQuestion
+);

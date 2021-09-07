@@ -6,22 +6,19 @@ import { IQuestion } from '@models/quiz.model';
   templateUrl: './answers.component.html',
   styleUrls: ['./answers.component.scss'],
 })
-export class AnswersComponent implements OnInit {
+export class AnswersComponent {
   @Input() question!: IQuestion;
   @Output() questionResult = new EventEmitter<boolean>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  private incorrect_count = 0;
 
   onAnswer(answer: string) {
     if (this.question.correct_answer === answer) {
       this.questionResult.emit(true);
     } else {
-      this.question.incorrect_count++;
+      this.incorrect_count++;
     }
 
-    if (this.question.incorrect_count === 3) {
+    if (this.incorrect_count === 3) {
       this.questionResult.emit(false);
     }
   }

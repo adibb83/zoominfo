@@ -2,9 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { QuizService } from '@services/quiz.service';
 import QuizState from '@store/quiz.state';
-import * as QuizActions from '@store/quiz.actions'
+import * as QuizActions from '@store/quiz.actions';
 import { Subscription } from 'rxjs';
 import { IQuiz } from '@models/quiz.model';
+import * as selectors from '@store/quiz.selector';
+import { StoreService } from '@services/store.service';
 
 @Component({
   selector: 'app-root',
@@ -13,37 +15,26 @@ import { IQuiz } from '@models/quiz.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   quizSub!: Subscription;
-  quiz$ = this.store.pipe(select('quiz'));
+  quiz$ = this.storeService.GetQuiz;
+  CurrentQuestion$ = this.storeService.currentQuestion;
 
-  constructor(
-    private store: Store<{ quiz: QuizState }>
-    , private quizService: QuizService) {
-  }
+  constructor(private storeService: StoreService) {}
 
   ngOnInit() {
-    this.quizSub = this.quiz$.subscribe(state => {
-      if (state.Quiz !== null) {
-        this.quizService.quizLoader$.next(JSON.parse(JSON.stringify(state.Quiz)))
-      } else {
-        this.initNewQuiz();
-      }
-    },
+    this.quizSub = this.quiz$.subscribe(
+      (state) => {
+        console.log(state);
+      },
       (err) => err,
       () => this.quizSub.unsubscribe()
     );
-  }
 
-
-  initNewQuiz() {
-    let quiz: IQuiz = this.quizService.initNewQuiz();
-    this.quizService.getQuizQuestions().then(questions => {
-      quiz.questions = questions;
-      this.quizService.quizLoader$.next(quiz);
-      this.store.dispatch(QuizActions.AddQuestionList({ payload: quiz }))
-    })
+    this.storeService.getApiQuestions();
   }
 
   ngOnDestroy() {
-    if (this.quizSub) { this.quizSub.unsubscribe(); }
+    if (this.quizSub) {
+      this.quizSub.unsubscribe();
+    }
   }
 }
