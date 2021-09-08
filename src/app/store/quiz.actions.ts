@@ -3,24 +3,24 @@ import { IQuiz, IQuestion } from '@models/quiz.model';
 
 export const GetQuiz = createAction(
   '[Welcome Component] - Init quiz',
-  props<{ payload: IQuiz }>()
+  props<{ quiz: IQuiz }>()
 );
 
 export const GetQuestions = createAction('[Client Api] - Get Questions');
 
 export const GetQuestionsSuccess = createAction(
   '[Client Api] Get Question Success ',
-  props<{ payload: IQuestion[] }>()
+  props<{ questions: IQuestion[] }>()
 );
 
 export const GetQuestionsFail = createAction(
   '[Client Api] Get Question Fail ',
-  props<{ payload: Error }>()
+  props<{ error: Error }>()
 );
 
 export const GetCurrentQuestion = createAction(
   '[Quiz Component] Get Current Question',
-  props<{ payload: IQuestion }>()
+  props<{ question: IQuestion }>()
 );
 
 export const AnswerQuestionSuccess = createAction(

@@ -18,9 +18,10 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ScoreComponent } from '@pages/score/score.component';
 import { StoreModule } from '@ngrx/store';
 import { QuizReducer } from '@store/quiz.reducer';
-import { ShufflePipe } from './pipes/shuffle.pipe';
 import { EffectsModule } from '@ngrx/effects';
 import { QuestionsEffects } from '@store/quiz.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,6 @@ import { QuestionsEffects } from '@store/quiz.effects';
     ScoreComponent,
     ButtonAnimationDirective,
     code64Pipe,
-    ShufflePipe,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +43,10 @@ import { QuestionsEffects } from '@store/quiz.effects';
     PrimeNGModule,
     StoreModule.forRoot({ quiz: QuizReducer }),
     EffectsModule.forRoot([QuestionsEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     MessageService,

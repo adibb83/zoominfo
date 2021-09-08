@@ -1,25 +1,41 @@
 import { createReducer, on, Action, State } from '@ngrx/store';
-import { IQuiz, IQuestion } from '@models/quiz.model';
 import * as QuizActions from '@store/quiz.actions';
-import QuizState, { initializeState } from './quiz.state';
-
-export const initialState = initializeState();
+import { initializeState } from './quiz.state';
 
 export const QuizReducer = createReducer(
-  initialState,
-  on(QuizActions.GetQuestions, (state) => ({
+  initializeState,
+  on(QuizActions.GetQuestionsSuccess, (state, action) => ({
     ...state,
+    quiz: {
+      ...state.quiz,
+      questions: action.questions,
+    },
   })),
-  on(QuizActions.GetCurrentQuestion, (state, { payload }) => ({
+  on(QuizActions.GetCurrentQuestion, (state, action) => ({
     ...state,
-    currentQuestion: payload,
+    quiz: {
+      ...state.quiz,
+      currentQuestion: action.question,
+    },
   })),
   on(QuizActions.AnswerQuestionSuccess, (state) => ({
     ...state,
-    correct_answers: state.quiz.answers.correct_answers + 1,
+    quiz: {
+      ...state.quiz,
+      answers: {
+        ...state.quiz.answers,
+        correct_answers: ++state.quiz.answers.correct_answers,
+      },
+    },
   })),
   on(QuizActions.AnswerQuestionFail, (state) => ({
     ...state,
-    incorrect_answers: state.quiz.answers.incorrect_answers + 1,
+    quiz: {
+      ...state.quiz,
+      answers: {
+        ...state.quiz.answers,
+        incorrect_answers: ++state.quiz.answers.incorrect_answers,
+      },
+    },
   }))
 );

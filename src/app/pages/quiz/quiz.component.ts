@@ -1,13 +1,10 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { switchMap, startWith } from 'rxjs/operators';
-import { IQuestion, IQuiz } from '@models/quiz.model';
+import { IQuestion } from '@models/quiz.model';
 import { QuizService } from '@services/quiz.service';
 import { ToastMassageService } from '@services/toast-massage.service';
 import { Router } from '@angular/router';
-import QuizState from '@store/quiz.state';
-import { Store } from '@ngrx/store';
-import * as QuizActions from '@store/quiz.actions';
 import { StoreService } from '@services/store.service';
 
 @Component({
@@ -35,7 +32,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.questions$.subscribe((que) => {
       console.log(que);
-      this.startQuiz(que);
+      if (que.length > 0) {
+        this.startQuiz(que);
+      }
     });
   }
 

@@ -24,7 +24,7 @@ export class StoreService {
   }
 
   setCurrentQuestion(question: IQuestion) {
-    this.store.dispatch(QuizActions.GetCurrentQuestion({ payload: question }));
+    this.store.dispatch(QuizActions.GetCurrentQuestion({ question: question }));
   }
 
   get currentQuestion(): Observable<IQuestion> {
