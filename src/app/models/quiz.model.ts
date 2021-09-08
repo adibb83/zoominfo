@@ -6,6 +6,7 @@ export interface IQuiz {
   questions: IQuestion[];
   answers: IAnswering;
   currentQuestion: IQuestion;
+  isFinished: boolean,
 }
 
 export interface IQuestion {

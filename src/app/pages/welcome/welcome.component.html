@@ -4,5 +4,6 @@
     10 Questions, 20s Per Question.<br><br>
     <b>Are You Ready For It?</b>
   </p>
-  <button pButton pRipple type="button" label="Let's GO!!" (click)="startQuiz();" class="p-button-rounded"></button>
+  <button [disabled]="(questions$|async).length == 0" pButton pRipple type="button" label="Let's GO!!"
+    (click)="startQuiz();" class="p-button-rounded"></button>
 </div>

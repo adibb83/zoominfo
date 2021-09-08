@@ -11,15 +11,6 @@
   align-items: $align-items;
 }
 
-@mixin const-height-basis($basis) {
-  height: 100%;
-  flex: 1 0 $basis;
-}
-
-@mixin size($width, $height) {
-  height: $height;
-  width: $width;
-}
 
 @mixin center-div() {
   position: absolute;

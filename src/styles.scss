@@ -2,15 +2,3 @@
 @import "../node_modules/primeicons/primeicons.css";
 @import "../node_modules/primeng/resources/themes/fluent-light/theme.css";
 @import "./app/style/main.scss";
-
-// BLINK
-.btn--blink {
-  background-color: green;
-  animation: blink 1s ease-out;
-}
-
-// Wiggle
-.btn--wiggle {
-  background-color: red;
-  animation: 0.5s wiggle ease-in-out;
-}

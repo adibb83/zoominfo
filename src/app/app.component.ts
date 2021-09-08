@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '@services/shared.service';
 import { StoreService } from '@services/store.service';
 
 @Component({
@@ -7,9 +8,9 @@ import { StoreService } from '@services/store.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private storeService: StoreService) {}
-
+  constructor(private storeService: StoreService, private sharedService: SharedService) { }
+  Loader$ = this.sharedService.loader$;
   ngOnInit() {
-    this.storeService.getApiQuestions();
+    this.storeService.getQuestionsFromApi();
   }
 }

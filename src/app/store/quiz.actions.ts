@@ -1,11 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IQuiz, IQuestion } from '@models/quiz.model';
 
-export const GetQuiz = createAction(
-  '[Welcome Component] - Init quiz',
-  props<{ quiz: IQuiz }>()
-);
-
 export const GetQuestions = createAction('[Client Api] - Get Questions');
 
 export const GetQuestionsSuccess = createAction(
@@ -29,4 +24,14 @@ export const AnswerQuestionSuccess = createAction(
 
 export const AnswerQuestionFail = createAction(
   '[Quiz Component] Answer Question Fail'
+);
+
+export const EndGame = createAction(
+  '[Quiz Component] - End Game',
+  props<{ end: boolean }>()
+);
+
+export const RestartNewQuiz = createAction(
+  '[Score Component] - Init New Quiz',
+  props<{ quiz: IQuiz }>()
 );

@@ -1,17 +1,16 @@
-<p-progressSpinner class="abs-center" *ngIf="!questions"></p-progressSpinner>
-<div class="carousel__container" *ngIf="questions">
-  <p-carousel [value]="questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
-    [page]="currentQuestionIndex">
+<div class="carousel__container" *ngIf="questions$ | async">
+  <p-carousel [value]="questions$ | async" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
+    [page]="currentQuestionIndex" [circular]="false" [showIndicators]="true">
     <ng-template let-question pTemplate="item">
       <div class="question__item">
         <div class="question__item-content">
           <div class="question__item-txt">
-            <p><b>Q:{{question.id}}. {{question.question | de64}}</b></p>
+            <p><b>Q: {{question.id}}. {{question.question | de64}}</b></p>
           </div>
           <div>
             <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>
           </div>
-          <div class="question__answers" [ngClass]="{'avoid-clicks': lockAnswers}">
+          <div [ngClass]="{'avoid-clicks': lockAnswers}">
             <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
           </div>
         </div>

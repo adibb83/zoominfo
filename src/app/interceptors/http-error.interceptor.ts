@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { LoggerService } from '@services/logger.service';
 import { MessageService } from 'primeng/api';
 import { ToastMassageService } from '@services/toast-massage.service';
+import { SharedService } from '@services/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ import { ToastMassageService } from '@services/toast-massage.service';
 
 // global http calls error handling
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(private loggerService: LoggerService, private toastService: ToastMassageService) { }
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -30,7 +31,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         this.loggerService.debug(message);
         this.toastService.showError(message);
         return throwError(message);
-      })
+      }),
     ) as Observable<HttpEvent<any>>;
   }
+
+  constructor(
+    private loggerService: LoggerService,
+    private toastService: ToastMassageService,
+  ) { }
 }

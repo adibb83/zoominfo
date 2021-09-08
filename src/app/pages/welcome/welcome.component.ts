@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IQuiz } from '@models/quiz.model';
-import { select, Store } from '@ngrx/store';
-import { QuizService } from '@services/quiz.service';
-import QuizState from '@store/quiz.state';
-import { selectQuiz, selectQuizState } from '@store/quiz.selector'
+
 
 import { Router } from '@angular/router';
+import { StoreService } from '@services/store.service';
+
 
 
 @Component({
@@ -13,15 +11,15 @@ import { Router } from '@angular/router';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
-
-  constructor(
-    private router: Router) {
-  }
-
-  ngOnInit(): void { }
+export class WelcomeComponent {
+  questions$ = this.storeService.GetQuestions
 
   startQuiz() {
     this.router.navigate(['quiz'])
+  }
+
+  constructor(
+    private router: Router,
+    private storeService: StoreService) {
   }
 }

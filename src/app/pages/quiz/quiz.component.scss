@@ -20,6 +20,10 @@
     text-align: center;
     padding: 2rem 0;
     width: 100%;
+    display: grid;
+    grid-template-rows: 100px 30px 1fr;
+    align-items: center;
+
   }
 
   &__item-txt {
@@ -29,4 +33,9 @@
       font-size: 1.3rem;
     }
   }
+}
+
+.avoid-clicks {
+  pointer-events: none;
+  cursor: none;
 }

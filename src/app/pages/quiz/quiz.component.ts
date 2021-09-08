@@ -1,11 +1,10 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
-import { switchMap, startWith } from 'rxjs/operators';
+import { switchMap, startWith, delay } from 'rxjs/operators';
 import { IQuestion } from '@models/quiz.model';
-import { QuizService } from '@services/quiz.service';
-import { ToastMassageService } from '@services/toast-massage.service';
 import { Router } from '@angular/router';
 import { StoreService } from '@services/store.service';
+import { SharedService } from '@services/shared.service';
 
 @Component({
   selector: 'app-quiz',
@@ -22,23 +21,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentQuestionIndex = 0;
   lockAnswers!: boolean;
 
-  constructor(
-    private quizService: QuizService,
-    private toastMassage: ToastMassageService,
-    private router: Router,
-    private storeService: StoreService
-  ) {}
-
-  ngOnInit() {
-    this.questions$.subscribe((que) => {
-      console.log(que);
-      if (que.length > 0) {
-        this.startQuiz(que);
-      }
-    });
-  }
-
   startQuiz(questions: IQuestion[]) {
+    this.sharedService.loader$.next(false);
     this.questions = questions;
     this.storeService.setCurrentQuestion(
       this.questions[this.currentQuestionIndex]
@@ -68,7 +52,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   addScoreToTotal(isCorrect: boolean) {
-    this.storeService.setAnawerScore(isCorrect);
+    this.storeService.setAnswerScore(isCorrect);
   }
 
   startTimer() {
@@ -95,8 +79,25 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   endGame() {
-    this.router.navigate(['score']);
     this.timerSub.unsubscribe();
+    this.storeService.endGame();
+    this.currentQuestionIndex = 0;
+    this.router.navigate(['score']);
+  }
+
+  constructor(
+    private router: Router,
+    private storeService: StoreService,
+    private sharedService: SharedService
+  ) { }
+
+  ngOnInit() {
+    this.questions$.pipe(delay(0)).subscribe((que) => {
+      this.sharedService.loader$.next(true);
+      if (que.length > 0) {
+        this.startQuiz(que);
+      }
+    });
   }
 
   ngOnDestroy() {

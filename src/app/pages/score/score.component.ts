@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAnswering, IQuiz } from '@models/quiz.model';
-import { QuizService } from '@services/quiz.service';
 import { StoreService } from '@services/store.service';
 import { Subscription } from 'rxjs';
 
@@ -10,17 +8,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.scss'],
 })
-export class ScoreComponent implements OnInit, OnDestroy {
+export class ScoreComponent implements OnDestroy {
   quizScore$ = this.storeService.quizScore;
   quizLoaderSub!: Subscription;
 
-  constructor(private storeService: StoreService, private router: Router) {}
-
   refreshQuiz() {
+    this.storeService.startNewQuiz();
     this.router.navigate(['welcome']);
   }
 
-  ngOnInit(): void {}
+  constructor(
+    private storeService: StoreService,
+    private router: Router) { }
 
   ngOnDestroy() {
     if (this.quizLoaderSub) {

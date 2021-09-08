@@ -1,4 +1,3 @@
-import { IAnswering, IQuestion, IQuiz } from '@models/quiz.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import QuizState from './quiz.state';
 
@@ -22,4 +21,9 @@ export const selectAnswers = createSelector(
 export const selectCurrentQuestion = createSelector(
   selectQuizState,
   (state: QuizState) => state.quiz.currentQuestion
+);
+
+export const selectQuizStatus = createSelector(
+  selectQuizState,
+  (state: QuizState) => state.quiz.isFinished
 );

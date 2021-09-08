@@ -5,30 +5,15 @@
   transform: translate(-50%, -50%);
 }
 
-.u-center-text {
-  text-align: center;
+
+// BLINK
+.btn--blink {
+  background-color: green;
+  animation: blink 1s ease-out;
 }
 
-.u-mb-sm {
-  margin-bottom: 1.5rem;
-}
-
-.u-mb-md {
-  margin-bottom: 4rem;
-}
-
-.u-mb-lg {
-  margin-bottom: 8rem;
-}
-
-.u-mt-lg {
-  margin-top: 8rem;
-}
-
-.u-mt-xl {
-  margin-top: 10rem;
-}
-
-.flex-1 {
-  flex: 1 1 auto;
+// Wiggle
+.btn--wiggle {
+  background-color: red;
+  animation: 0.5s wiggle ease-in-out;
 }
