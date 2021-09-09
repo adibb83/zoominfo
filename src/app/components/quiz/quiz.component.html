@@ -1,11 +1,11 @@
-<div class="carousel__container" *ngIf="questions$ | async">
-  <p-carousel [value]="questions$ | async" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
+<div class="carousel__container" *ngIf="questions$ | async as questions">
+  <p-carousel [value]="questions" [showNavigators]="false" [numVisible]="1" [showIndicators]="false"
     [page]="currentQuestionIndex" [circular]="false" [showIndicators]="true">
     <ng-template let-question pTemplate="item">
       <div class="question__item">
         <div class="question__item-content">
           <div class="question__item-txt">
-            <p><b>Q: {{question.id}}. {{question.question | de64}}</b></p>
+            <p><b><span class="decorator">Q:</span> {{question.id}}. {{question.question | de64}}</b></p>
           </div>
           <div>
             <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>

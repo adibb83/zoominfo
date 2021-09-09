@@ -27,12 +27,19 @@
   }
 
   &__item-txt {
+    .decorator {
+      font-size: 2rem;
+      color: palevioletred;
+    }
+
     p {
       white-space: pre-line;
       text-align: center;
       font-size: 1.3rem;
     }
   }
+
+
 }
 
 .avoid-clicks {

@@ -1,41 +1,41 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeNGModule } from '@modules/prime-ng/prime-ng.module';
-
-// pipe
-import { code64Pipe } from '@pipes/code64.pipe';
-// directives
-import { ButtonAnimationDirective } from '@directives/button-animation.directive';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
+// Services
+import { StoreService } from '@services/store.service';
+import { SharedService } from '@services/shared.service';
+import { ToastMassageService } from '@services/toast-massage.service';
+import { LoggerService } from '@services/logger.service';
+
 
 @NgModule({
   declarations: [
-    code64Pipe,
-    ButtonAnimationDirective
   ],
   imports: [
     CommonModule,
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    PrimeNGModule
   ],
   exports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    PrimeNGModule,
-    code64Pipe,
-    ButtonAnimationDirective
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        StoreService,
+        SharedService,
+        ToastMassageService,
+        LoggerService,
+      ]
+    };
+  }
+}

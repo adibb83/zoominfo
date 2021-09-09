@@ -16,16 +16,13 @@ export class QuizComponent implements OnInit, OnDestroy {
   reset$ = new Subject();
   timer$!: Observable<any>;
   timerSub!: Subscription;
-  quizLoaderSub!: Subscription;
+  questionsSub!: Subscription;
   questions$ = this.storeService.getQuestions;
   questions: IQuestion[] = [];
   currentQuestionIndex = 0;
-  notifier = new Subject()
   lockAnswers = new BehaviorSubject<boolean>(false);
 
-  startQuiz(questions: IQuestion[]) {
-    this.sharedService.loader$.next(false);
-    this.questions = questions;
+  startQuiz() {
     this.storeService.setCurrentQuestion(
       this.questions[this.currentQuestionIndex]
     );
@@ -61,8 +58,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   startTimer() {
     this.timer$ = this.reset$.pipe(
       startWith(0),
-      switchMap(() => timer(1, 1000)),
-      takeUntil(this.notifier)
+      switchMap(() => timer(1, 1000))
     );
 
     this.timerSub = this.timer$.subscribe((second) => {
@@ -73,11 +69,10 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   refreshTimer() {
-    this.reset$.next(void 0);
+    this.reset$.next(0);
   }
 
   stopTimer() {
-    this.notifier.next();
     this.timerSub.unsubscribe();
   }
 
@@ -91,26 +86,26 @@ export class QuizComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private storeService: StoreService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
   ) { }
 
   ngOnInit() {
-    this.questions$.pipe(delay(0)).subscribe((que) => {
-      this.sharedService.loader$.next(true);
+    this.questionsSub = this.questions$.pipe(delay(0)).subscribe((que) => {
       if (que.length > 0) {
-        this.startQuiz(que);
+        this.questions = que;
+        this.sharedService.loader$.next(false);
       }
     });
+    this.startQuiz();
   }
 
   ngOnDestroy() {
-    this.notifier.next();
     if (this.timerSub) {
       this.timerSub.unsubscribe();
     }
 
-    if (this.quizLoaderSub) {
-      this.quizLoaderSub.unsubscribe();
+    if (this.questionsSub) {
+      this.questionsSub.unsubscribe();
     }
   }
 }

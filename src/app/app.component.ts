@@ -8,8 +8,13 @@ import { StoreService } from '@services/store.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private storeService: StoreService, private sharedService: SharedService) { }
+
   Loader$ = this.sharedService.loader$;
+
+  constructor(
+    private storeService: StoreService,
+    private sharedService: SharedService) { }
+
   ngOnInit() {
     this.storeService.getQuestionsFromApi();
   }

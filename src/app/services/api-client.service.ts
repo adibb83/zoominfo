@@ -8,7 +8,6 @@ import { QuestionResponse } from '@models/quiz.model';
   providedIn: 'root',
 })
 export class ApiClientService {
-
   // Get Single question from server -- Interceptor error handling
   getQuestion(): Observable<QuestionResponse> {
     return this.httpClient.get<QuestionResponse>(`${environment.remoteServer}`);
