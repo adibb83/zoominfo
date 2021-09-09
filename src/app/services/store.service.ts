@@ -11,11 +11,11 @@ import { Observable } from 'rxjs';
 export class StoreService {
 
 
-  get GetQuiz(): Observable<IQuiz> {
+  get getQuiz(): Observable<IQuiz> {
     return this.store.select(QuizSelectors.selectQuiz);
   }
 
-  get GetQuestions(): Observable<IQuestion[]> {
+  get getQuestions(): Observable<IQuestion[]> {
     return this.store.select(QuizSelectors.selectQuestions);
   }
 
@@ -31,14 +31,6 @@ export class StoreService {
     return this.store.select(QuizSelectors.selectQuizStatus);
   }
 
-  get initNewQuiz(): IQuiz {
-    return {
-      questions: [],
-      answers: { correct_answers: 0, incorrect_answers: 0 },
-      currentQuestion: null,
-      isFinished: false
-    } as IQuiz
-  }
 
   getQuestionsFromApi() {
     this.store.dispatch(QuizActions.GetQuestions());
@@ -61,9 +53,7 @@ export class StoreService {
   }
 
   startNewQuiz() {
-    this.store.dispatch(QuizActions.RestartNewQuiz({
-      quiz: this.initNewQuiz
-    }));
+    this.store.dispatch(QuizActions.RestartNewQuiz());
     this.getQuestionsFromApi();
   }
 

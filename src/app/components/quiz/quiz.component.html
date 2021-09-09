@@ -10,7 +10,7 @@
           <div>
             <span><i class="pi pi-clock green"></i> {{timer$|async}}</span>
           </div>
-          <div [ngClass]="{'avoid-clicks': lockAnswers}">
+          <div [ngClass]="{'avoid-clicks': lockAnswers|async}">
             <app-answers [question]="question" (questionResult)="questionResult($event)"></app-answers>
           </div>
         </div>

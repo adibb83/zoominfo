@@ -51,7 +51,6 @@ export const QuizReducer = createReducer(
   })),
 
   on(QuizActions.RestartNewQuiz, (state, action) => ({
-    ...state,
-    quiz: action.quiz
+    ...initializeState
   })),
 );

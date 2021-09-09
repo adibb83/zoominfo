@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { StoreService } from '@services/store.service';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent {
-  questions$ = this.storeService.GetQuestions
+  questions$ = this.storeService.getQuestions
 
   startQuiz() {
     this.router.navigate(['quiz'])

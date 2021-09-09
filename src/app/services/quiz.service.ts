@@ -18,6 +18,8 @@ export class QuizService {
   questionId = 1;
 
   // get 10 questions from api
+
+  // or we can do
   async getQuizQuestions(): Promise<IQuestion[]> {
     let promises = [];
     for (let index = 0; index < 10; index++) {

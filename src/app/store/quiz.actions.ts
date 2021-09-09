@@ -32,6 +32,5 @@ export const EndGame = createAction(
 );
 
 export const RestartNewQuiz = createAction(
-  '[Score Component] - Init New Quiz',
-  props<{ quiz: IQuiz }>()
+  '[Score Component] - Init New Quiz'
 );
