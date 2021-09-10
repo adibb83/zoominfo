@@ -5,6 +5,7 @@ import { IQuestion } from '@models/quiz.model';
 import { Router } from '@angular/router';
 import { StoreService } from '@services/store.service';
 import { SharedService } from '@services/shared.service';
+import { QuizService } from '@services/quiz.service';
 
 @Component({
   selector: 'app-quiz',

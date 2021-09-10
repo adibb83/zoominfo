@@ -3,8 +3,12 @@ import { IQuestion, IQuiz, QuestionResponse } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
 import {
   BehaviorSubject,
+  EMPTY,
+  observable,
   Observable,
+  of,
 } from 'rxjs';
+import { concatMap, expand, finalize, flatMap, last, map, mergeMap, reduce, take, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -38,6 +42,24 @@ export class QuizService {
     this.questionId++;
     return question;
   }
+
+
+  // ** for reference --  option number 2  (recursive)
+  // for fetching api data and return array of questions -- not active
+  getQuestionsOption2() {
+    let questionsList: IQuestion[] = []
+    this.apiClientService.getQuestion().pipe(
+      expand(response => {
+        return response.results && response.results[0] ?
+          this.apiClientService.getQuestion() :
+          EMPTY
+      }),
+      concatMap(z => z.results),
+      tap(x => questionsList.push(x)),
+      finalize(() => console.log(questionsList)),
+      take(10))
+  }
+
 
   constructor(
     private apiClientService: ApiClientService,
