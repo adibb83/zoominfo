@@ -1,27 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IQuestion, IQuiz, QuestionResponse } from '@models/quiz.model';
+import { IQuestion } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
-import { rejects } from 'assert';
-import {
-  BehaviorSubject,
-  EMPTY,
-  observable,
-  Observable,
-  of,
-  throwError,
-} from 'rxjs';
-import {
-  concatMap,
-  expand,
-  finalize,
-  flatMap,
-  last,
-  map,
-  mergeMap,
-  reduce,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { concatMap, expand, finalize, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
