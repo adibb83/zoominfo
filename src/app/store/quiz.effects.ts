@@ -13,8 +13,6 @@ import { SharedService } from '@services/shared.service';
 
 @Injectable()
 export class QuestionsEffects {
-  Loader$ = this.sharedService.loader$;
-
   loadQuestion$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(GetQuestions),
@@ -22,13 +20,12 @@ export class QuestionsEffects {
         from(this.quizService.getQuizQuestions(10)).pipe(
           tap(() => {
             console.log('Loading Questions...');
-            this.Loader$.next(true);
           }),
           map((questions) => GetQuestionsSuccess({ questions: questions })),
           catchError((error) => of(GetQuestionsFail({ error: error }))),
           tap(() => {
             console.log('Questions Effect Finished');
-            this.Loader$.next(false);
+            this.sharedService.loader$.next(false);
           })
         )
       )

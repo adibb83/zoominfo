@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class StoreService {
-
-
   get getQuiz(): Observable<IQuiz> {
     return this.store.select(QuizSelectors.selectQuiz);
   }
@@ -31,7 +29,6 @@ export class StoreService {
     return this.store.select(QuizSelectors.selectQuizStatus);
   }
 
-
   getQuestionsFromApi() {
     this.store.dispatch(QuizActions.GetQuestions());
   }
@@ -47,9 +44,11 @@ export class StoreService {
   }
 
   endGame() {
-    this.store.dispatch(QuizActions.EndGame({
-      end: true
-    }));
+    this.store.dispatch(
+      QuizActions.EndGame({
+        end: true,
+      })
+    );
   }
 
   startNewQuiz() {
@@ -57,7 +56,5 @@ export class StoreService {
     this.getQuestionsFromApi();
   }
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 }
-
-

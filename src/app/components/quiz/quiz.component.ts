@@ -50,7 +50,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // for animation effect
+    // for animation effect delay
     setTimeout(() => {
       this.nextQuestion();
       this.refreshTimer();

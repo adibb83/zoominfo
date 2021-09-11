@@ -12,9 +12,10 @@ export class AppComponent implements OnInit {
     private storeService: StoreService,
     private sharedService: SharedService
   ) {}
-  Loader$ = this.sharedService.loader$;
+
+  loader$ = this.sharedService.loader$;
   ngOnInit() {
-    this.Loader$.next(true);
+    this.loader$.next(true);
     this.storeService.getQuestionsFromApi();
   }
 }

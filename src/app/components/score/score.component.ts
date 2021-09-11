@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from '@services/shared.service';
 import { StoreService } from '@services/store.service';
 import { Subscription } from 'rxjs';
 
@@ -13,13 +14,16 @@ export class ScoreComponent implements OnDestroy {
   quizLoaderSub!: Subscription;
 
   refreshQuiz() {
+    this.sharedService.loader$.next(true);
     this.storeService.startNewQuiz();
     this.router.navigate(['welcome']);
   }
 
   constructor(
     private storeService: StoreService,
-    private router: Router) { }
+    private sharedService: SharedService,
+    private router: Router
+  ) {}
 
   ngOnDestroy() {
     if (this.quizLoaderSub) {
