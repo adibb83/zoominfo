@@ -13,6 +13,10 @@ import { ScoreRouteGuardService } from '@services/score.guard.service';
 import { QuizService } from '@services/quiz.service';
 import { ApiClientService } from '@services/api-client.service';
 import { HttpErrorInterceptor } from '@interceptors/http-error.interceptor';
+import { StoreService } from '@services/store.service';
+import { SharedService } from '@services/shared.service';
+import { ToastMassageService } from '@services/toast-massage.service';
+import { LoggerService } from '@services/logger.service';
 
 // NGRX
 import { StoreModule } from '@ngrx/store';
@@ -25,13 +29,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ScoreComponent } from '@components/score/score.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-    ScoreComponent,
-  ],
+  declarations: [AppComponent, WelcomeComponent, ScoreComponent],
   imports: [
     SharedModule,
     HttpClientModule,
@@ -51,7 +50,11 @@ import { ScoreComponent } from '@components/score/score.component';
     ApiClientService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     QuizService,
+    StoreService,
+    SharedService,
+    ToastMassageService,
+    LoggerService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

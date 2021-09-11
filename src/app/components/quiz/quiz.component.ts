@@ -1,5 +1,11 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  Subscription,
+  timer,
+} from 'rxjs';
 import { switchMap, startWith, delay, takeUntil } from 'rxjs/operators';
 import { IQuestion } from '@models/quiz.model';
 import { Router } from '@angular/router';
@@ -13,7 +19,6 @@ import { QuizService } from '@services/quiz.service';
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit, OnDestroy {
-
   reset$ = new Subject();
   timer$!: Observable<any>;
   timerSub!: Subscription;
@@ -84,17 +89,12 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.router.navigate(['score']);
   }
 
-  constructor(
-    private router: Router,
-    private storeService: StoreService,
-    private sharedService: SharedService,
-  ) { }
+  constructor(private router: Router, private storeService: StoreService) {}
 
   ngOnInit() {
     this.questionsSub = this.questions$.pipe(delay(0)).subscribe((que) => {
       if (que.length > 0) {
         this.questions = que;
-        this.sharedService.loader$.next(false);
       }
     });
     this.startQuiz();

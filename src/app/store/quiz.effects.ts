@@ -9,22 +9,35 @@ import {
   GetQuestionsFail,
 } from '@store/quiz.actions';
 import { Action } from '@ngrx/store';
+import { SharedService } from '@services/shared.service';
 
 @Injectable()
 export class QuestionsEffects {
+  Loader$ = this.sharedService.loader$;
+
   loadQuestion$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(GetQuestions),
       mergeMap(() =>
         from(this.quizService.getQuizQuestions(10)).pipe(
-          tap(() => console.log('Loading Questions...')),
+          tap(() => {
+            console.log('Loading Questions...');
+            this.Loader$.next(true);
+          }),
           map((questions) => GetQuestionsSuccess({ questions: questions })),
           catchError((error) => of(GetQuestionsFail({ error: error }))),
-          tap(() => console.log('Questions Effect Finished'))
+          tap(() => {
+            console.log('Questions Effect Finished');
+            this.Loader$.next(false);
+          })
         )
       )
     )
   );
 
-  constructor(private actions$: Actions, private quizService: QuizService) {}
+  constructor(
+    private actions$: Actions,
+    private quizService: QuizService,
+    private sharedService: SharedService
+  ) {}
 }
