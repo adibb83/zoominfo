@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { StoreService } from '@services/store.service';
 import { SharedService } from '@services/shared.service';
 import { QuizService } from '@services/quiz.service';
+import { ToastMassageService } from '@services/toast-massage.service';
 
 @Component({
   selector: 'app-quiz',
@@ -89,11 +90,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.router.navigate(['score']);
   }
 
-  constructor(private router: Router, private storeService: StoreService) {}
+  constructor(
+    private router: Router,
+    private storeService: StoreService) { }
 
   ngOnInit() {
     this.questionsSub = this.questions$.pipe(delay(0)).subscribe((que) => {
-      if (que.length > 0) {
+      if (que && que.length > 0) {
         this.questions = que;
       }
     });

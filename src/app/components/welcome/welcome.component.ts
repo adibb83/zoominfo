@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 
 import { Router } from '@angular/router';
+import { QuizService } from '@services/quiz.service';
 import { StoreService } from '@services/store.service';
 
 
@@ -17,6 +18,7 @@ export class WelcomeComponent {
   startQuiz() {
     this.router.navigate(['quiz'])
   }
+
 
   constructor(
     private router: Router,

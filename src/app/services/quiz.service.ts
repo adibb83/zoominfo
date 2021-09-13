@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IQuestion } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { concatMap, expand, finalize, take, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -35,7 +35,9 @@ export class QuizService {
   // ** for reference --  option number 2  (recursive)
   // for fetching api data and return array of questions -- not active
   getQuestionsOption2(queNumber: number) {
+
     let questionsList: IQuestion[] = [];
+
     this.apiClientService.getQuestion().pipe(
       expand((response) => {
         return response.results && response.results[0]
@@ -43,11 +45,12 @@ export class QuizService {
           : EMPTY;
       }),
       concatMap((z) => z.results),
-      tap((x) => questionsList.push(x)),
+      tap((x) => { console.log(x); questionsList.push(x); }),
       finalize(() => console.log(questionsList)),
       take(queNumber)
-    );
+    )
+
   }
 
-  constructor(private apiClientService: ApiClientService) {}
+  constructor(private apiClientService: ApiClientService) { }
 }

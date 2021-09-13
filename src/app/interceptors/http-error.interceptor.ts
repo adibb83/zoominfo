@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, finalize, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { LoggerService } from '@services/logger.service';
 import { ToastMassageService } from '@services/toast-massage.service';
@@ -26,14 +26,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let message = `message: ${error.message}, status: ${error.status}, Url: ${error.url}`;
         this.loggerService.debug(message);
-        this.toastService.showError(message);
         return throwError(message);
       })
     ) as Observable<HttpEvent<any>>;
   }
 
   constructor(
-    private loggerService: LoggerService,
-    private toastService: ToastMassageService
-  ) {}
+    private loggerService: LoggerService
+  ) { }
 }
