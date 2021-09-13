@@ -18,7 +18,7 @@ export class QuestionsEffects {
     this.actions$.pipe(
       ofType(GetQuestions),
       mergeMap(() =>
-        from(this.quizService.getQuizQuestions(10)).pipe(
+        this.quizService.getQuizQuestions(10).pipe(
           tap(() => {
             this.loggerService.info('Loading Questions...');
           }),
@@ -38,5 +38,5 @@ export class QuestionsEffects {
     private quizService: QuizService,
     private sharedService: SharedService,
     private loggerService: LoggerService
-  ) { }
+  ) {}
 }

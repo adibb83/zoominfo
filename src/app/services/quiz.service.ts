@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { IQuestion } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
-import { EMPTY } from 'rxjs';
-import { concatMap, expand, finalize, take, tap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import {
+  concatAll,
+  concatMap,
+  expand,
+  finalize,
+  reduce,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +18,33 @@ import { concatMap, expand, finalize, take, tap } from 'rxjs/operators';
 export class QuizService {
   questionId = 1;
 
-  async getQuizQuestions(queNumber: number): Promise<IQuestion[]> {
+  getQuizQuestions(queNumber: number): Observable<IQuestion[]> {
+    return this.apiClientService.getQuestion().pipe(
+      expand((response) => {
+        return response.results && response.results[0]
+          ? this.apiClientService.getQuestion()
+          : EMPTY;
+      }),
+      take(queNumber),
+      reduce((acc, val) => {
+        acc.push(this.convertDataToQuestionModel(val.results[0]));
+        return acc;
+      }, [])
+    );
+  }
+
+  // for random correct answer location
+  convertDataToQuestionModel(question: IQuestion): IQuestion {
+    question.id = this.questionId;
+    question.all_answers = [...question.incorrect_answers];
+    question.all_answers.splice(Math.random() * 3, 0, question.correct_answer);
+    this.questionId++;
+    return question;
+  }
+
+  // ** for reference --  option number 2  (async)
+  // for fetching api data and return array of questions -- not active
+  async getQuizQuestionOption2(queNumber: number): Promise<IQuestion[]> {
     let promises = [];
     for (let index = 0; index < queNumber; index++) {
       promises.push(this.apiClientService.getQuestion().toPromise());
@@ -23,34 +57,5 @@ export class QuizService {
     return questions;
   }
 
-  // for random correct answer location
-  convertDataToQuestionModel(question: IQuestion): IQuestion {
-    question.id = this.questionId;
-    question.all_answers = [...question.incorrect_answers];
-    question.all_answers.splice(Math.random() * 3, 0, question.correct_answer);
-    this.questionId++;
-    return question;
-  }
-
-  // ** for reference --  option number 2  (recursive)
-  // for fetching api data and return array of questions -- not active
-  getQuestionsOption2(queNumber: number) {
-
-    let questionsList: IQuestion[] = [];
-
-    this.apiClientService.getQuestion().pipe(
-      expand((response) => {
-        return response.results && response.results[0]
-          ? this.apiClientService.getQuestion()
-          : EMPTY;
-      }),
-      concatMap((z) => z.results),
-      tap((x) => { console.log(x); questionsList.push(x); }),
-      finalize(() => console.log(questionsList)),
-      take(queNumber)
-    )
-
-  }
-
-  constructor(private apiClientService: ApiClientService) { }
+  constructor(private apiClientService: ApiClientService) {}
 }
