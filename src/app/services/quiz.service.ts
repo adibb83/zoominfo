@@ -2,15 +2,7 @@ import { Injectable } from '@angular/core';
 import { IQuestion } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
 import { EMPTY, Observable } from 'rxjs';
-import {
-  concatAll,
-  concatMap,
-  expand,
-  finalize,
-  reduce,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { expand, reduce, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
 import { Router } from '@angular/router';
-import { QuizService } from '@services/quiz.service';
 import { StoreService } from '@services/store.service';
 
 @Component({
@@ -16,11 +14,5 @@ export class WelcomeComponent {
     this.router.navigate(['quiz']);
   }
 
-  constructor(
-    private router: Router,
-    private storeService: StoreService,
-    private quizService: QuizService
-  ) {
-    // this.quizService.getQuizQuestions2(10);
-  }
+  constructor(private router: Router, private storeService: StoreService) {}
 }

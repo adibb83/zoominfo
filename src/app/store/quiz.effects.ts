@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { QuizService } from '@services/quiz.service';
 import {
