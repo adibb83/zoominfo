@@ -10,9 +10,7 @@ import { switchMap, startWith, delay, takeUntil } from 'rxjs/operators';
 import { IQuestion } from '@models/quiz.model';
 import { Router } from '@angular/router';
 import { StoreService } from '@services/store.service';
-import { SharedService } from '@services/shared.service';
-import { QuizService } from '@services/quiz.service';
-import { ToastMassageService } from '@services/toast-massage.service';
+
 
 @Component({
   selector: 'app-quiz',

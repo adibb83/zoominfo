@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IQuestion } from '@models/quiz.model';
 import { ApiClientService } from '@services/api-client.service';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { concatMap, expand, finalize, take, tap } from 'rxjs/operators';
 
 @Injectable({

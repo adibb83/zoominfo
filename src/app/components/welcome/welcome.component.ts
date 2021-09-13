@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 
 import { Router } from '@angular/router';
-import { QuizService } from '@services/quiz.service';
 import { StoreService } from '@services/store.service';
 
 
