@@ -20,6 +20,7 @@ export class QuestionsEffects {
       mergeMap(() =>
         this.quizService.getQuizQuestions(10).pipe(
           tap(() => {
+            this.quizService.resetQuestionId();
             this.loggerService.info('Loading Questions...');
           }),
           map((questions) => GetQuestionsSuccess({ questions: questions })),

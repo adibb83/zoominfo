@@ -11,7 +11,6 @@ import { IQuestion } from '@models/quiz.model';
 import { Router } from '@angular/router';
 import { StoreService } from '@services/store.service';
 
-
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -88,9 +87,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.router.navigate(['score']);
   }
 
-  constructor(
-    private router: Router,
-    private storeService: StoreService) { }
+  constructor(private router: Router, private storeService: StoreService) {}
 
   ngOnInit() {
     this.questionsSub = this.questions$.pipe(delay(0)).subscribe((que) => {

@@ -34,6 +34,10 @@ export class QuizService {
     return question;
   }
 
+  resetQuestionId() {
+    this.questionId = 1;
+  }
+
   // ** for reference --  option number 2  (async)
   // for fetching api data and return array of questions -- not active
   async getQuizQuestionOption2(queNumber: number): Promise<IQuestion[]> {

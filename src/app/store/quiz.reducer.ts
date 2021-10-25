@@ -46,11 +46,11 @@ export const QuizReducer = createReducer(
     ...state,
     quiz: {
       ...state.quiz,
-      isFinished: action.end
-    }
+      isFinished: action.end,
+    },
   })),
 
-  on(QuizActions.RestartNewQuiz, (state, action) => ({
-    ...initializeState
-  })),
+  on(QuizActions.RestartNewQuiz, () => ({
+    ...initializeState,
+  }))
 );
